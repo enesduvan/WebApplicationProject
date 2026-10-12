@@ -1,1 +1,65 @@
-﻿<h1>Kitap Türleri</h1>
+@using WebApplicationProject.Models.Entities
+@model List<BookCategory>
+
+@if (TempData["basarili"] != null)
+{
+			<h2 style="color:red">@TempData["basarili"]</h2>
+}
+
+
+<div class="container">
+
+	<div class="row pt-3 pb-4">
+		<div class="col-6">
+			<h1>Kitap Türleri</h1>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="BookCategory" asp-action="CategoryAdd" class="btn btn-lg btn-primary">
+				Yeni Kitap Türü Oluştur
+			</a>
+		</div>
+	</div>
+
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>
+					Id
+				</th>
+				<th>
+					Kitap Türü
+				</th>
+				<th>
+				</th>
+				<th>
+				</th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach(var kitapTuru in Model)
+			{
+				<tr>
+					<td>@kitapTuru.CategoryId</td>
+					<td>@kitapTuru.CategoryName</td>
+					<td>
+						<a asp-controller="BookCategory" asp-action="Guncelle" asp-route-id="@kitapTuru.CategoryId" type="button" class="btn btn-success" style="width:250px">Güncelle</a>
+					</td>
+					<td>
+						<a asp-controller="BookCategory" asp-action="Sil" asp-route-id="@kitapTuru.CategoryId" type="button" class="btn btn-danger" style="width:250px">Sil</a>						
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	<div class="row pt-3 pb-2">
+		<div>
+			<a asp-controller="BookCategory" asp-action="CategoryAdd" class="btn btn-lg btn-primary" type="button">
+				Yeni Kitap Türü Oluştur
+			</a>
+		</div>
+	</div>
+
+
+</div>
