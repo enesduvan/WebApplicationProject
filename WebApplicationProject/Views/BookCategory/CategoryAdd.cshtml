@@ -14,6 +14,7 @@
 			<label asp-for="CategoryName" class="p-0"></label>
 			<input asp-for="CategoryName" class="form-control"/>
 			<span asp-validation-for="CategoryName" class="text-danger"></span>
+
 		</div>
 		
 		<button type="submit" class="btn btn-lg btn-primary" style="width:250px">Kitap Türü Ekle</button>
@@ -26,3 +27,6 @@
 
 </form>
 
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

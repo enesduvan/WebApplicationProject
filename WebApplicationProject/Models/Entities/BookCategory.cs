@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace WebApplicationProject.Models.Entities
 {
@@ -6,7 +7,9 @@ namespace WebApplicationProject.Models.Entities
     {
         [Key] // Primary key
         public int CategoryId { get; set; }
-        [Required]  // Category name is required
+        [Required(ErrorMessage = "Kategori adı zorunludur.")]  // Category name is required
+        [StringLength(25, ErrorMessage = "Kategori adı en fazla 25 karakter olabilir.")] // Maximum length of 25 characters
+        [DisplayName("Kategori Adı")] // Display name for the category
         public string CategoryName { get; set; }
 
     }
