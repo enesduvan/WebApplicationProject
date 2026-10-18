@@ -13,12 +13,12 @@ namespace WebApplicationProject.Models.Repository
         //iki farklı sınıfıda aldık içeriye 
         public void Guncelle(BookCategory bookCategory)
         {
-           
+           _context.Update(bookCategory);
         }
 
-        public void Kaydet()
+        public void Save()
         {
-            
+            _context.SaveChanges();
         }
     }
 }

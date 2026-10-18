@@ -6,6 +6,6 @@ namespace WebApplicationProject.Models.Repository
     {
         //Ana interface IRepository<T> interface'inden türetilmiş bir interface'dir ve BookCategory entity'si için özel işlemleri tanımlar.
         void Guncelle(BookCategory bookCategory); // BookCategory entity'sini güncellemek için bir metot tanımı.
-        void Kaydet(); // BookCategory entity'sini kaydetmek için bir metot tanımı. 
+        void Save(); // BookCategory entity'sini kaydetmek için bir metot tanımı. 
     }
 }

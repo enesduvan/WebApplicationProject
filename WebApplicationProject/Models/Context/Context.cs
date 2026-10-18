@@ -9,6 +9,7 @@ namespace WebApplicationProject.Models.Context
             //veritabanı entitiy bağlantısı
         }
         public DbSet<Entities.BookCategory> BookCategories { get; set; } // BookCategory tablosu
+        public DbSet<Entities.Book> Books { get; set; } // Book tablosu
 
     }
 }

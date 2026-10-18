@@ -1,19 +1,20 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApplicationProject.Models.Context;
 using WebApplicationProject.Models.Entities;
+using WebApplicationProject.Models.Repository;
 
 namespace WebApplicationProject.Controllers
 {
     public class BookCategoryController : Controller
     {
-        private readonly Context _context; // _parametre dji injection otomatik
-        public BookCategoryController(Context context)
+        private readonly IBookCategoryRepository _bookCategoryRepository;
+        public BookCategoryController(IBookCategoryRepository bookCategoryRepository)
         {
-            _context = context;
+            _bookCategoryRepository = bookCategoryRepository;
         }
         public IActionResult Index()
         {
-            List<BookCategory> objBookCategories = _context.BookCategories.ToList();
+            List<BookCategory> objBookCategories = _bookCategoryRepository.GetAll().ToList();
             
             return View(objBookCategories);
         }
@@ -28,8 +29,8 @@ namespace WebApplicationProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.BookCategories.Add(bookCategory);
-                _context.SaveChanges();
+                _bookCategoryRepository.Add(bookCategory);
+                _bookCategoryRepository.Save();
                 TempData["basarili"] = "Yeni Kitap Türü başarıyla oluşturuldu!";
                 return RedirectToAction("Index");
             }
@@ -42,7 +43,7 @@ namespace WebApplicationProject.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDb = _context.BookCategories.Find(id);
+            var categoryFromDb = _bookCategoryRepository.Get(c => c.CategoryId == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -56,8 +57,8 @@ namespace WebApplicationProject.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.BookCategories.Update(bookCategory);
-                _context.SaveChanges();
+                _bookCategoryRepository.Guncelle(bookCategory);
+                _bookCategoryRepository.Save();
                 TempData["basarili"] = "Kitap Türü başarıyla güncellendi!";
                 return RedirectToAction("Index");
             }
@@ -70,7 +71,7 @@ namespace WebApplicationProject.Controllers
             {
                 return NotFound();
             }
-            var categoryFromDb = _context.BookCategories.Find(id);
+            var categoryFromDb = _bookCategoryRepository.Get(c => c.CategoryId == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
@@ -82,13 +83,13 @@ namespace WebApplicationProject.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult SilPOST(int? id)
         {
-            var categoryFromDb = _context.BookCategories.Find(id);
+            var categoryFromDb = _bookCategoryRepository.Get(c => c.CategoryId == id);
             if (categoryFromDb == null)
             {
                 return NotFound();
             }
-            _context.BookCategories.Remove(categoryFromDb);
-            _context.SaveChanges();
+            _bookCategoryRepository.Delete(categoryFromDb);
+            _bookCategoryRepository.Save();
             TempData["basarili"] = "Kitap Türü başarıyla silindi!";
             return RedirectToAction("Index");
         }
