@@ -1,4 +1,4 @@
-﻿using System.Linq.Expressions;
+using System.Linq.Expressions;
 
 namespace WebApplicationProject.Models.Repository
 {
@@ -6,10 +6,10 @@ namespace WebApplicationProject.Models.Repository
     {
         //T parametre karşılığı entitiler 
         //<T> generictir ve asenkron olarak çalışır.
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll(string? includeProperties = null);
 
         //id isim vb şeyleri al gel 
-        T Get(Expression<Func<T, bool>> filter);
+        T Get(Expression<Func<T, bool>> filter, string? includeProperties = null);
 
         //vt CRUD
         void Add(T entity);

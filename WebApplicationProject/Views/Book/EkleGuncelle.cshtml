@@ -1,0 +1,84 @@
+@using WebApplicationProject.Models.Entities
+@model Book
+
+<form method="post" enctype="multipart/form-data">
+	<input asp-for="Id" hidden />
+	<input asp-for="ImageUrl" hidden />
+
+	<div class="row">
+		<div class="col-10">
+
+			<div class="border p-3 mt-5">
+				<div class="row pb-3">
+					<h2 class="text-primary">@(Model == null || Model.Id == 0 ? "Kitap Ekle" : "Kitap Güncelle")</h2>
+					<hr />
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="BookName" class="p-0">Kitap Adı</label>
+					<input asp-for="BookName" class="form-control" />
+					<span asp-validation-for="BookName" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="CategoryId" class="p-0">Kitap Türü (Kategori)</label>
+					<select asp-for="CategoryId" asp-items="ViewBag.CategoryList" class="form-select">
+						<option disabled selected>-- Kategori Seçiniz --</option>
+					</select>
+					<span asp-validation-for="CategoryId" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="Description" class="p-0">Tanım</label>
+					<input asp-for="Description" class="form-control" />
+					<span asp-validation-for="Description" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="Ahuthor" class="p-0">Yazar</label>
+					<input asp-for="Ahuthor" class="form-control" />
+					<span asp-validation-for="Ahuthor" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="Price" class="p-0">Fiyat</label>
+					<input asp-for="Price" class="form-control" />
+					<span asp-validation-for="Price" class="text-danger"></span>
+				</div>
+
+				<div class="mb-3">
+					<label asp-for="ImageUrl" class="p-0">Görsel URL / Resim Yolu</label>
+					<input asp-for="ImageUrl" class="form-control" />
+					<span asp-validation-for="ImageUrl" class="text-danger"></span>
+				</div>
+
+				@if (Model != null && Model.Id > 0)
+				{
+					<button type="submit" class="btn btn-lg btn-success" style="width:250px">Güncelle</button>
+				}
+				else
+				{
+					<button type="submit" class="btn btn-lg btn-primary" style="width:250px">Kitap Ekle</button>
+				}
+
+				<a asp-controller="Book" asp-action="Index" class="btn btn-lg btn-secondary" style="width:250px">
+					Kitaplara Geri Dön
+				</a>
+
+			</div>
+
+		</div>
+		<div class="col-2 mt-5">	
+			@if (Model != null && !string.IsNullOrEmpty(Model.ImageUrl))
+			{
+				<img src="@Model.ImageUrl" width="100%"
+					style="border-radius:7px; border:1px solid #bbb9b9" />			
+			}
+		</div>
+	</div>
+
+</form>
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

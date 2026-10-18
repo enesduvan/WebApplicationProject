@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using WebApplicationProject.Models.Context;
+using WebApplicationProject.Models.Entities;
 using WebApplicationProject.Models.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +10,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddScoped<IBookCategoryRepository, BookCategoryRepository>();
+builder.Services.AddScoped<IBookRepository<Book>, BookRepository>();
 //servisi depencyinjection ile ekledik. IBookCategoryRepository interface'ini BookCategoryRepository sınıfına bağladık.
 
 

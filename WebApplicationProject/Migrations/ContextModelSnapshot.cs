@@ -37,6 +37,9 @@ namespace WebApplicationProject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -49,6 +52,8 @@ namespace WebApplicationProject.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
 
                     b.ToTable("Books");
                 });
@@ -69,6 +74,17 @@ namespace WebApplicationProject.Migrations
                     b.HasKey("CategoryId");
 
                     b.ToTable("BookCategories");
+                });
+
+            modelBuilder.Entity("WebApplicationProject.Models.Entities.Book", b =>
+                {
+                    b.HasOne("WebApplicationProject.Models.Entities.BookCategory", "BookCategory")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BookCategory");
                 });
 #pragma warning restore 612, 618
         }

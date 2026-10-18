@@ -1,0 +1,77 @@
+@using WebApplicationProject.Models.Entities
+@model List<Book>
+
+@if (TempData["basarili"] != null)
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		@TempData["basarili"]
+		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
+<div class="container">
+
+	<div class="row pt-3 pb-4">
+		<div class="col-6">
+			<h1 class="text-primary">Kitaplar</h1>
+		</div>
+		<div class="col-6 text-end">
+			<a asp-controller="Book" asp-action="EkleGuncelle" class="btn btn-lg btn-primary">
+				Yeni Kitap Oluştur
+			</a>
+		</div>
+	</div>
+
+	<table class="table table-bordered table-striped">
+		<thead>
+			<tr>		
+				<th>Görsel</th>
+				<th>Id</th>
+				<th>Kitap Adı</th>
+				<th>Tanım</th>
+				<th>Yazar</th>
+				<th>Kitap Türü</th>
+				<th>Fiyat</th>
+				<th></th>
+				<th></th>
+			</tr>
+		</thead>
+
+		<tbody>
+			@foreach(var book in Model)
+			{
+				<tr>
+					<td align="center" valign="middle">
+						@if (!string.IsNullOrEmpty(book.ImageUrl))
+						{
+							<img src="@book.ImageUrl" style="border-radius: 7px; border: 1px solid #bbb9b9; max-width: 100px; max-height: 140px; object-fit: cover;" />
+						}
+					</td>
+					<td align="center" valign="middle">@book.Id</td>
+					<td align="center" valign="middle">@book.BookName</td>
+					<td align="center" valign="middle">@book.Description</td>
+					<td align="center" valign="middle">@book.Ahuthor</td>
+					<td align="center" valign="middle">
+						<span class="badge bg-info text-dark">@(book.BookCategory != null ? book.BookCategory.CategoryName : "Belirtilmemiş")</span>
+					</td>
+					<td align="center" valign="middle">@book.Price.ToString("0.00") ₺</td>
+					<td align="center" valign="middle">
+						<a asp-controller="Book" asp-action="EkleGuncelle" asp-route-id="@book.Id" class="btn btn-success" style="width:130px">Güncelle</a>
+					</td>
+					<td align="center" valign="middle">
+						<a asp-controller="Book" asp-action="Sil" asp-route-id="@book.Id" class="btn btn-danger" style="width:130px">Sil</a>						
+					</td>
+				</tr>
+			}
+		</tbody>
+	</table>
+
+	<div class="row pt-3 pb-2">
+		<div>
+			<a asp-controller="Book" asp-action="EkleGuncelle" class="btn btn-lg btn-primary">
+				Yeni Kitap Oluştur
+			</a>
+		</div>
+	</div>
+
+</div>
